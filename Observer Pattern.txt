@@ -1,0 +1,84 @@
+
+public interface Stock {
+	
+	    void REGISTER(Observer o);
+	    void DEREGISTER(Observer o);
+	    void notifyObservers(String symbol, double price);
+	}
+
+public interface Observer {
+    void update(String symbol, double price);
+}
+
+
+
+	public class DesktopApp implements Observer {
+	    private String user;
+
+	    public DesktopApp(String user) {
+	        this.user = user;
+	    }
+	    public void update(String symbol, double price) {
+	        System.out.println(user + " (Desktop) have been notified: " + symbol + " = ₹" + price);
+	    }
+	}
+public class MobileApp implements Observer{
+	    private String user;
+
+	    public void MobileTrader(String user) {
+	        this.user = user;
+	    }
+
+	    public void update(String symbol, double price) {
+	        System.out.println(user + " (Mobile) have been notified: " + symbol + " = ₹" + price);
+	    }
+	}
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StockMarket implements Stock{
+    private List<Observer> observers = new ArrayList<>();
+
+    public void REGISTER(Observer o) {
+        observers.add(o);
+    }
+
+    public void DEREGISTER(Observer o) {
+        observers.remove(o);
+    }
+
+    public void notifyObservers(String symbol, double price) {
+        for (Observer o : observers) {
+            o.update(symbol, price);
+        }
+    }
+    public void changePrice(String symbol, double price) {
+        System.out.println("\nStock Price has been Changed " + symbol + " to Rs:" + price);
+        notifyObservers(symbol, price);
+    }
+}
+public class Main1_7 {
+	public class ObserverPatternDemo {
+	    public static void main(String[] args) {
+	        StockMarket exchange = new StockMarket();
+
+	        Observer trader1 = new MobileApp();
+	        Observer trader2 = new DesktopApp("Bob");
+
+	        exchange.REGISTER(trader1);
+	        exchange.REGISTER(trader2);
+
+	        exchange.changePrice("CTS", 5689.50);
+	        exchange.changePrice("HEXAWARE", 4537.10);
+
+	        exchange.DEREGISTER(trader2); 
+
+	        exchange.changePrice("ZOHO", 4451.80);
+	    }
+	}
+
+}
+
+
+

@@ -1,0 +1,60 @@
+package day1_5;
+
+public interface Notifier {
+    void sending(String message);
+}
+
+public class EmailNotifier implements Notifier {
+	
+	 public void sending(String message) {
+	        System.out.println("Email that is sent: " + message);
+	    }
+	}
+	public abstract class NotifierDecorator implements Notifier {
+	    protected Notifier wrappedNotifier;
+
+	    public NotifierDecorator(Notifier notifier) {
+	        this.wrappedNotifier = notifier;
+	    }
+
+	    @Override
+	    public void sending(String message) {
+	        wrappedNotifier.sending(message);
+	}
+}
+public class SlackNotifierDecorator extends NotifierDecorator {
+    public SlackNotifierDecorator(Notifier notifier) {
+        super(notifier);
+    }
+    public void sending(String message) {
+        super.sending(message);
+        sendSlack(message);
+    }
+
+    private void sendSlack(String message) {
+        System.out.println("Slack message that is sent: " + message);
+    }
+}
+public class SMSNotifierDecorator extends NotifierDecorator {
+    public SMSNotifierDecorator(Notifier notifier) {
+        super(notifier);
+    }
+    public void sending(String message) {
+        super.sending(message);
+        sendSMS(message);
+    }
+
+    private void sendSMS(String message) {
+        System.out.println("Email that is sent: " + message);
+    }
+}
+public class TestClass {
+	    public static void main(String[] args) {
+	        Notifier emailNotifier = new EmailNotifier();
+	        Notifier smsNotifier = new SMSNotifierDecorator(emailNotifier);
+	        Notifier slackNotifier = new SlackNotifierDecorator(smsNotifier);
+	        slackNotifier.sending("Your order has been shipped!");
+	    }
+	}
+
+
