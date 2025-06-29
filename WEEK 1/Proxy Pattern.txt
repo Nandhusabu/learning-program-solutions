@@ -1,0 +1,62 @@
+package day1_6;
+
+public interface Image {
+    void display();
+}
+
+public class RealImage implements Image {
+    private String file;
+
+    public RealImage(String file) {
+        this.file = file;
+        loadFromRemote();
+    }
+
+    private void loadFromRemote() {
+        System.out.println("Loading the picture from remote server: " + file);
+    }
+    public void display() {
+        System.out.println("Displaying image: " + file);
+    }
+}
+
+	import java.util.HashMap;
+	import java.util.Map;
+
+	public class ProxyImage implements Image {
+	    private RealImage realImage;
+	    private String file;
+
+	    public ProxyImage(String fileName) {
+	        this.file = fileName;
+	    }
+	    public void display() {
+	        if (realImage == null) {
+	            System.out.println("Loading image : " + file);
+	            realImage = new RealImage(file);
+	        } else {
+	            System.out.println("Using THAT image: " + file);
+	        }
+	        realImage.display();
+	    }
+	}
+
+
+public class Main1_6 {
+	
+	    public static void main(String[] args) {
+	        Image img1 = new ProxyImage("ANIMAL.png");
+	        Image img2 = new ProxyImage("MOUNTAIN.png");
+	        Image img3 = new ProxyImage("VILLAGE.png");
+
+	        img1.display();
+	        System.out.println();
+
+	        img2.display(); 
+	        System.out.println();
+
+	        img3.display();  
+	    }
+	}
+
+

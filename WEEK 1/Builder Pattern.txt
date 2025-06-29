@@ -1,0 +1,68 @@
+
+public class Computer {
+	    private String CPU;
+	    private String RAM;
+	    private String storage;
+	    private String gps;
+	    private String os;
+	    private Computer(Builder builder) {
+	        this.CPU = builder.CPU;
+	        this.RAM = builder.RAM;
+	        this.storage = builder.storage;
+	        this.gps = builder.gps;
+	        this.os = builder.os;
+	    }
+	    public static class Builder {
+	        private String CPU;
+	        private String RAM;
+	        private String storage;
+	        private String gps;
+	        private String os;
+
+	        public Builder(String CPU, String RAM) {
+	            this.CPU = CPU;
+	            this.RAM = RAM;
+	        }
+	        public Builder setStorage(String storage) {
+	            this.storage = storage;
+	            return this;
+	        }
+
+	        public Builder setGps(String gps) {
+	            this.gps = gps;
+	            return this;
+	        }
+
+	        public Builder setOs(String os) {
+	            this.os = os;
+	            return this;
+	        }
+	        public Computer build() {
+	            return new Computer(this);
+	        }
+	    }
+	    public String toString() {
+	        return "Computer :\n" +
+	               "CPU: " + CPU + "\n" +
+	               "RAM: " + RAM + "\n" +
+	               "Storage: " + storage + "\n" +
+	               "Graphics Card: " + gps + "\n" +
+	               "Operating System: " + os;
+	    }
+	}
+public class Main1_3 {
+	    public static void main(String[] args) {
+	        Computer basicComputer = new Computer.Builder("Lenovo i5", "12GB")
+	        		.setGps("5Tb ")
+	        		.build();
+	        Computer gamingComputer = new Computer.Builder("Dell ", "64GB")
+	                .setStorage("1TB SSD")
+	                .setGps("NVIDIA RTX 4356")
+	                .setOs("Windows 11")
+	                .build();
+	        System.out.println("Basic Computer:\n" + basicComputer + "\n");
+	        System.out.println("Gaming Computer:\n" + gamingComputer);
+	    }
+	}
+
+

@@ -1,0 +1,49 @@
+interface customerrepository {
+    customer findbyid(String id);
+}
+
+class customer {
+    private String id;
+    private String name;
+
+    public customer(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getid() {
+        return id;
+    }
+
+    public String getname() {
+        return name;
+    }
+}
+
+class customerrepositoryimpl implements customerrepository {
+    public customer findbyid(String id) {
+        return new customer(id, "rajesh");
+    }
+}
+
+class customerservice {
+    private customerrepository repo;
+
+    public customerservice(customerrepository repo) {
+        this.repo = repo;
+    }
+
+    public void getcustomerdetails(String id) {
+        customer c = repo.findbyid(id);
+        System.out.println("Customer ID: " + c.getid());
+        System.out.println("Customer Name: " + c.getname());
+    }
+}
+
+public class Main1_11 {
+	    public static void main(String[] args) {
+	        customerrepository repo = new customerrepositoryimpl();
+	        customerservice service = new customerservice(repo);
+	        service.getcustomerdetails("C151");
+	    }
+	}

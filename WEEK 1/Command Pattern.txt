@@ -1,0 +1,69 @@
+interface command {
+    void run();
+}
+
+class light {
+    public void switchon() {
+        System.out.println("Light is ON");
+    }
+
+    public void switchoff() {
+        System.out.println("Light is OFF");
+    }
+}
+
+class LightOnCommand implements command {
+    private Light l;
+
+    publicLightOnCommand(light l) {
+        this.l = l;
+    }
+
+    public void run() {
+        l.switchon();
+    }
+}
+
+class LightOffCommand implements command {
+    private Light l;
+
+    public LightOffCommand(Light l) {
+        this.l = l;
+    }
+
+    public void run() {
+        l.switchoff();
+    }
+}
+
+class remote {
+    private command task;
+
+    public void set(command task) {
+        this.task = task;
+    }
+
+    public void press() {
+        if (task != null) {
+            task.run();
+        } else {
+            System.out.println("No command given.");
+        }
+    }
+}
+
+public class Main1_9 {
+	    public static void main(String[] args) {
+	        Light room = new Light();
+	        command on = new LightOnCommand(room);
+	        command off = new LightOffCommand(room);
+
+	        Remote rem = new Remote();
+
+	        rem.set(on);
+	        rem.press();
+
+	        rem.set(off);
+	        rem.press();
+	    }
+	}

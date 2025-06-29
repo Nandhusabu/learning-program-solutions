@@ -1,0 +1,62 @@
+<<<<<<< HEAD
+public class SingleTon {
+	 private static SingleTon instance;
+	 private SingleTon() {
+	        System.out.println("Logger successfully initialized.....!");
+	    }
+	    public static SingleTon getInstance() {
+	        if (instance == null) {
+	            instance = new SingleTon();
+	        }
+	        return instance;
+	    }
+	    public void Message(String message) {
+	        System.out.println(message);
+	    }
+	}
+public class TestLog {
+	public static void main(String[] args) {
+		SingleTon logg1 = SingleTon.getInstance();
+		SingleTon logg2 = SingleTon.getInstance();
+        logg1.Message("This is  first log message.");
+        logg2.Message("This is  second log message.");
+        if (logg1 == logg2) {
+            System.out.println("Both log instances are same ");
+        } 
+        else {
+            System.out.println("SingleTon failed dur to different instances.");
+        }
+    }
+}
+=======
+public class SingleTon {
+	 private static SingleTon instance;
+	 private SingleTon() {
+	        System.out.println("Logger successfully initialized.....!");
+	    }
+	    public static SingleTon getInstance() {
+	        if (instance == null) {
+	            instance = new SingleTon();
+	        }
+	        return instance;
+	    }
+	    public void Message(String message) {
+	        System.out.println(message);
+	    }
+	}
+public class TestLog {
+	public static void main(String[] args) {
+		SingleTon logg1 = SingleTon.getInstance();
+		SingleTon logg2 = SingleTon.getInstance();
+        logg1.Message("This is  first log message.");
+        logg2.Message("This is  second log message.");
+        if (logg1 == logg2) {
+            System.out.println("Both log instances are same ");
+        } 
+        else {
+            System.out.println("SingleTon failed dur to different instances.");
+        }
+    }
+}
+>>>>>>> f5aace4 (Initial commit: Added design pattern examples)
+	
